@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\ProfileController;
@@ -20,6 +21,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('companies', CompanyController::class);
     Route::resource('leads', LeadController::class);
+    Route::resource('contacts', ContactController::class);
 });
 
 require __DIR__.'/auth.php';
