@@ -66,6 +66,16 @@
             <span>Tasks</span>
         </a>
 
+        <a href="{{ route('sales-targets.index') }}"
+           class="flex items-center gap-3 px-4 py-2 rounded-xl 
+                  {{ request()->routeIs('sales-targets.*') ? 'bg-emerald-50 text-emerald-600 font-medium' : 'text-slate-600 hover:bg-slate-100' }}">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+            </svg>
+            <span>Sales Targets</span>
+        </a>
+
         <a href="#"
            class="flex items-center gap-3 px-4 py-2 rounded-xl 
                   {{ request()->routeIs('reports.*') ? 'bg-emerald-50 text-emerald-600 font-medium' : 'text-slate-600 hover:bg-slate-100' }}">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SalesTargetController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\DealController;
 use App\Http\Controllers\ContactController;
@@ -26,6 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('contacts', ContactController::class);
     Route::resource('deals', DealController::class);
     Route::resource('tasks', TaskController::class);
+    Route::resource('sales-targets', SalesTargetController::class);
 });
 
 require __DIR__.'/auth.php';

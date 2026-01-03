@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Company;
 use App\Models\Contact;
+use App\Models\SalesTarget;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -33,5 +34,8 @@ class DatabaseSeeder extends Seeder
 
         // Create some contacts linked to existing companies
         Contact::factory(20)->create();
+
+        // Create some sales targets linked to existing users
+        SalesTarget::factory(10)->create();
     }
 }
