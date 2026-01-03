@@ -21,7 +21,7 @@
             <span>Overview</span>
         </a>
 
-        <a href="#"
+        <a href="{{ route('leads.index') }}"
            class="flex items-center gap-3 px-4 py-2 rounded-xl 
                   {{ request()->routeIs('leads.*') ? 'bg-emerald-50 text-emerald-600 font-medium' : 'text-slate-600 hover:bg-slate-100' }}">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
