@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\RevenueController;
 use App\Http\Controllers\SalesTargetController;
 use App\Http\Controllers\TaskController;
@@ -30,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('tasks', TaskController::class);
     Route::resource('sales-targets', SalesTargetController::class);
     Route::resource('revenues', RevenueController::class);
+    Route::resource('documents', DocumentController::class);
 });
 
 require __DIR__.'/auth.php';

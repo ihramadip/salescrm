@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Company;
 use App\Models\Contact;
+use App\Models\Document;
 use App\Models\Revenue;
 use App\Models\SalesTarget;
 use App\Models\User;
@@ -41,5 +42,8 @@ class DatabaseSeeder extends Seeder
 
         // Create some revenues linked to existing won deals
         Revenue::factory(10)->create();
+
+        // Create some documents linked to existing leads, contacts, or deals
+        Document::factory(10)->create();
     }
 }

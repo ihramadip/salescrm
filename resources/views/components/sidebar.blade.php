@@ -85,6 +85,15 @@
             <span>Revenues</span>
         </a>
 
+        <a href="{{ route('documents.index') }}"
+           class="flex items-center gap-3 px-4 py-2 rounded-xl 
+                  {{ request()->routeIs('documents.*') ? 'bg-emerald-50 text-emerald-600 font-medium' : 'text-slate-600 hover:bg-slate-100' }}">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <span>Documents</span>
+        </a>
+
         <a href="#"
            class="flex items-center gap-3 px-4 py-2 rounded-xl 
                   {{ request()->routeIs('reports.*') ? 'bg-emerald-50 text-emerald-600 font-medium' : 'text-slate-600 hover:bg-slate-100' }}">
@@ -95,14 +104,7 @@
             <span>Reports</span>
         </a>
 
-        <a href="#"
-           class="flex items-center gap-3 px-4 py-2 rounded-xl 
-                  {{ request()->routeIs('documents.*') ? 'bg-emerald-50 text-emerald-600 font-medium' : 'text-slate-600 hover:bg-slate-100' }}">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
-            </svg>
-            <span>Documents</span>
-        </a>
+
     </nav>
 
     {{-- Divider --}}
