@@ -42,25 +42,10 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('related_type')" />
                             </div>
 
-                            <div x-data="{ relatedType: '{{ old('related_type') }}', relatedId: '{{ old('related_id') }}' }">
+                            <div>
                                 <x-input-label for="related_id" :value="__('Related To Item')" />
-                                <select id="related_id" name="related_id" x-model="relatedId" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-emerald-500 dark:focus:border-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 rounded-md shadow-sm">
+                                <select id="related_id" name="related_id" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-emerald-500 dark:focus:border-emerald-600 focus:ring-emerald-500 dark:focus:ring-emerald-600 rounded-md shadow-sm">
                                     <option value="">None</option>
-                                    <template x-if="relatedType === 'App\Models\Lead'">
-                                        @foreach($leads as $lead)
-                                            <option value="{{ $lead->id }}" x-bind:selected="relatedId == {{ $lead->id }}">{{ $lead->name }}</option>
-                                        @endforeach
-                                    </template>
-                                    <template x-if="relatedType === 'App\Models\Contact'">
-                                        @foreach($contacts as $contact)
-                                            <option value="{{ $contact->id }}" x-bind:selected="relatedId == {{ $contact->id }}">{{ $contact->name }}</option>
-                                        @endforeach
-                                    </template>
-                                    <template x-if="relatedType === 'App\Models\Deal'">
-                                        @foreach($deals as $deal)
-                                            <option value="{{ $deal->id }}" x-bind:selected="relatedId == {{ $deal->id }}">{{ $deal->title }}</option>
-                                        @endforeach
-                                    </template>
                                 </select>
                                 <x-input-error class="mt-2" :messages="$errors->get('related_id')" />
                             </div>
@@ -81,29 +66,30 @@
         document.addEventListener('DOMContentLoaded', function () {
             const relatedTypeSelect = document.getElementById('related_type');
             const relatedIdSelect = document.getElementById('related_id');
+            const oldRelatedType = '{{ old('related_type') }}';
+            const oldRelatedId = '{{ old('related_id') }}';
 
             function updateRelatedIdOptions() {
                 const selectedRelatedType = relatedTypeSelect.value;
                 
                 // Clear current options
-                for (let i = relatedIdSelect.options.length - 1; i > 0; i--) {
-                    relatedIdSelect.remove(i);
-                }
+                relatedIdSelect.innerHTML = '';
 
-                // Add options based on selected type
-                let items = [];
-                if (selectedRelatedType === 'App\Models\Lead') {
-                    items = @json($leads->map(fn($item) => ['id' => $item->id, 'name' => $item->name]));
-                } else if (selectedRelatedType === 'App\Models\Contact') {
-                    items = @json($contacts->map(fn($item) => ['id' => $item->id, 'name' => $item->name]));
-                } else if (selectedRelatedType === 'App\Models\Deal') {
-                    items = @json($deals->map(fn($item) => ['id' => $item->id, 'name' => $item->title]));
-                }
-
+                // Add default "None" option
                 const noneOption = document.createElement('option');
                 noneOption.value = "";
                 noneOption.textContent = "None";
                 relatedIdSelect.appendChild(noneOption);
+
+                // Add options based on selected type
+                let items = [];
+                if (selectedRelatedType === 'App\\Models\\Lead') {
+                    items = @json($leads->map(fn($item) => ['id' => $item->id, 'name' => $item->name]));
+                } else if (selectedRelatedType === 'App\\Models\\Contact') {
+                    items = @json($contacts->map(fn($item) => ['id' => $item->id, 'name' => $item->name]));
+                } else if (selectedRelatedType === 'App\\Models\\Deal') {
+                    items = @json($deals->map(fn($item) => ['id' => $item->id, 'name' => $item->title]));
+                }
 
                 items.forEach(item => {
                     const option = document.createElement('option');
@@ -112,9 +98,8 @@
                     relatedIdSelect.appendChild(option);
                 });
 
-                // Pre-select old value if available
-                const oldRelatedId = '{{ old('related_id') }}';
-                if (oldRelatedId) {
+                // Pre-select old value if it belongs to the current type
+                if (selectedRelatedType === oldRelatedType && oldRelatedId) {
                     relatedIdSelect.value = oldRelatedId;
                 }
             }
@@ -122,7 +107,8 @@
             relatedTypeSelect.addEventListener('change', updateRelatedIdOptions);
             
             // Initial call to set up options if an old relatedType was selected
-            if (relatedTypeSelect.value) {
+            // This ensures the dropdown is correctly populated on validation error redirects
+            if (oldRelatedType) {
                 updateRelatedIdOptions();
             }
         });

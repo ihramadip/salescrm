@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Contact extends Model
 {
@@ -28,5 +29,13 @@ class Contact extends Model
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+
+    /**
+     * Get all of the contact's activities.
+     */
+    public function activities(): MorphMany
+    {
+        return $this->morphMany(Activity::class, 'subject');
     }
 }

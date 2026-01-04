@@ -65,6 +65,10 @@ class DealController extends Controller
      */
     public function edit(Deal $deal)
     {
+        $deal->load(['activities' => function ($query) {
+            $query->with('user')->latest();
+        }]);
+
         $companies = Company::orderBy('name')->get();
         $contacts = Contact::orderBy('name')->get();
         $users = User::orderBy('name')->get();

@@ -57,6 +57,10 @@ class ContactController extends Controller
      */
     public function edit(Contact $contact)
     {
+        $contact->load(['activities' => function ($query) {
+            $query->with('user')->latest();
+        }]);
+
         $companies = Company::orderBy('name')->get();
         return view('contacts.edit', compact('contact', 'companies'));
     }

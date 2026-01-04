@@ -6,7 +6,7 @@
             <path d="M9 17C9 14.7909 10.7909 13 13 13H16" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <span class="text-lg font-semibold text-slate-900">
-            Sayang epyyy
+            CRM
         </span>
     </div>
 
@@ -94,7 +94,16 @@
             <span>Documents</span>
         </a>
 
-        <a href="#"
+        <a href="{{ route('activities.index') }}"
+           class="flex items-center gap-3 px-4 py-2 rounded-xl
+                  {{ request()->routeIs('activities.*') ? 'bg-emerald-50 text-emerald-600 font-medium' : 'text-slate-600 hover:bg-slate-100' }}">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Activities</span>
+        </a>
+
+        <a href="{{ route('reports.index') }}"
            class="flex items-center gap-3 px-4 py-2 rounded-xl 
                   {{ request()->routeIs('reports.*') ? 'bg-emerald-50 text-emerald-600 font-medium' : 'text-slate-600 hover:bg-slate-100' }}">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

@@ -66,6 +66,10 @@ class LeadController extends Controller
      */
     public function edit(Lead $lead)
     {
+        $lead->load(['activities' => function ($query) {
+            $query->with('user')->latest();
+        }]);
+
         $companies = Company::orderBy('name')->get();
         $users = User::orderBy('name')->get();
         return view('leads.edit', compact('lead', 'companies', 'users'));

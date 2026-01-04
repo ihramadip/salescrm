@@ -47,8 +47,11 @@ class DocumentController extends Controller
     {
         $request->validate([
             'file' => 'required|file|max:10240', // Max 10MB
-            'related_type' => 'nullable|string|in:App\Models\Lead,App\Models\Contact,App\Models\Deal',
-            'related_id' => 'nullable|integer',
+            'related_type' => [
+                'nullable', 'string', 'in:App\Models\Lead,App\Models\Contact,App\Models\Deal',
+                'required_with:related_id'
+            ],
+            'related_id' => ['nullable', 'integer', 'required_with:related_type'],
         ]);
 
         if ($request->filled('related_type') && $request->filled('related_id')) {
@@ -56,8 +59,6 @@ class DocumentController extends Controller
             if (!class_exists($modelClass) || !(new $modelClass)->find($request->input('related_id'))) {
                 return back()->withErrors(['related_id' => 'The selected related item is invalid.'])->withInput();
             }
-        } elseif ($request->filled('related_type') xor $request->filled('related_id')) {
-             return back()->withErrors(['related_id' => 'Both related type and ID must be provided, or neither.'])->withInput();
         }
 
         $filePath = $request->file('file')->store('public/documents');
@@ -109,8 +110,11 @@ class DocumentController extends Controller
     {
         $request->validate([
             'file' => 'nullable|file|max:10240', // Max 10MB
-            'related_type' => 'nullable|string|in:App\Models\Lead,App\Models\Contact,App\Models\Deal',
-            'related_id' => 'nullable|integer',
+            'related_type' => [
+                'nullable', 'string', 'in:App\Models\Lead,App\Models\Contact,App\Models\Deal',
+                'required_with:related_id'
+            ],
+            'related_id' => ['nullable', 'integer', 'required_with:related_type'],
         ]);
 
         if ($request->filled('related_type') && $request->filled('related_id')) {
@@ -118,8 +122,6 @@ class DocumentController extends Controller
             if (!class_exists($modelClass) || !(new $modelClass)->find($request->input('related_id'))) {
                 return back()->withErrors(['related_id' => 'The selected related item is invalid.'])->withInput();
             }
-        } elseif ($request->filled('related_type') xor $request->filled('related_id')) {
-             return back()->withErrors(['related_id' => 'Both related type and ID must be provided, or neither.'])->withInput();
         }
 
         // Handle new file upload

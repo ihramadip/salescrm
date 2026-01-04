@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Lead extends Model
 {
@@ -40,5 +41,13 @@ class Lead extends Model
     public function assignedTo()
     {
         return $this->belongsTo(User::class, 'assigned_to');
+    }
+
+    /**
+     * Get all of the lead's activities.
+     */
+    public function activities(): MorphMany
+    {
+        return $this->morphMany(Activity::class, 'subject');
     }
 }
